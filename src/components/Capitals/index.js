@@ -32,7 +32,9 @@ const countryAndCapitalsList = [
 
 // Write your code here
 class Capitals extends Component {
-  state = {activeCapitalId: countryAndCapitalsList[0].id}
+  state = {
+    activeCapitalId: countryAndCapitalsList[0].id,
+  }
 
   onChangeCapital = event => {
     this.setState({activeCapitalId: event.target.value})
@@ -40,31 +42,41 @@ class Capitals extends Component {
 
   getCountry = () => {
     const {activeCapitalId} = this.state
+
     const activeCountryAndCapital = countryAndCapitalsList.find(
       eachCapital => eachCapital.id === activeCapitalId,
     )
+
     return activeCountryAndCapital.country
   }
 
   render() {
     const {activeCapitalId} = this.state
-    const country = this.getCountry()
+    const country = this.getCountry(activeCapitalId)
 
     return (
-      <div>
-        <div>
-          <h1>Countries And Capitals</h1>
-          <div>
-            <select onChange={this.onChangeCapital} value={activeCapitalId}>
+      <div className="app-container">
+        <div className="capitals-container">
+          <h1 className="heading">Countries And Capitals</h1>
+          <div className="question-container">
+            <select
+              className="capital-select"
+              onChange={this.onChangeCapital}
+              value={activeCapitalId}
+            >
               {countryAndCapitalsList.map(eachCapital => (
-                <option key={eachCapital.id} value={eachCapital.id}>
+                <option
+                  key={eachCapital.id}
+                  value={eachCapital.id}
+                  className="option"
+                >
                   {eachCapital.capitalDisplayText}
                 </option>
               ))}
             </select>
-            <p>is capital of which country?</p>
+            <p className="question">is capital of which country?</p>
           </div>
-          <p>{country}</p>
+          <p className="country">{country}</p>
         </div>
       </div>
     )
